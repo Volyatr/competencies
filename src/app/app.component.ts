@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import {PersonService} from "./services/person.service";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,6 @@ import {PersonService} from "./services/person.service";
 export class AppComponent {
   title = 'competencies';
 
-  constructor(private personService: PersonService) {
-    this.personService.getPersons();
+  constructor() {
   }
 }
