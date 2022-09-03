@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import {CompetenciesModule} from "./competencies/competencies.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import {CompetenciesModule} from "./competencies/competencies.module";
   imports: [
     BrowserModule,
     HttpClientModule,
-    CompetenciesModule
+    CompetenciesModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
