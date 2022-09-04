@@ -25,7 +25,7 @@ export class PersonApiService {
   }
 
   add(person: Person): Observable<Person> {
-    return this.http.post<Person>(`${url}/persons` , person);
+    return this.http.post<Person>(`${url}/persons`, person);
   }
 
   delete(id: number): Observable<void> {
