@@ -3,12 +3,12 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Person} from "../model/person";
 
-const url = 'http://localhost:3000';
+const url = 'http://localhost:3000/api/v1';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PersonService {
+export class PersonApiService {
   constructor(private http: HttpClient) {
   }
 

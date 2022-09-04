@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {PersonService} from "../../services/person.service";
+import {PersonApiService} from "../../services/person-api.service";
 import {Observable} from "rxjs";
 import {Person} from "../../model/person";
 
@@ -11,8 +11,8 @@ import {Person} from "../../model/person";
 export class PersonListComponent {
   displayedColumns: string[] = ['icon', 'firstName', 'lastName', 'actions'];
 
-  data: Observable<Person[]> = this.personService.getAll();
+  data: Observable<Person[]> = this.personApiService.getAll();
 
-  constructor(private personService: PersonService) {
+  constructor(private personApiService: PersonApiService) {
   }
 }
