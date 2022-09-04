@@ -11,8 +11,8 @@ import {Person} from "../../model/person";
 })
 export class PersonUpdateDialogComponent {
   form: FormGroup = this.fb.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required]
+    firstName: [this.data.person?.firstName, Validators.required],
+    lastName: [this.data.person?.lastName, Validators.required]
   });
 
   constructor(

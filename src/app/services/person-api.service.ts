@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Person} from "../model/person";
 
-const url = 'http://localhost:3000/api/v1';
+const url = 'http://localhost:3000/api/v1/persons';
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +13,22 @@ export class PersonApiService {
   }
 
   getAll(): Observable<Person[]> {
-    return this.http.get<Person[]>(`${url}/persons`);
+    return this.http.get<Person[]>(`${url}`);
   }
 
   getById(id: number): Observable<Person> {
-    return this.http.get<Person>(`${url}/persons/${id}`);
+    return this.http.get<Person>(`${url}/${id}`);
   }
 
   edit(id:number, person: Person): Observable<Person> {
-    return this.http.put<Person>(`${url}/persons/${id}`, person);
+    return this.http.put<Person>(`${url}/${id}`, person);
   }
 
   add(person: Person): Observable<Person> {
-    return this.http.post<Person>(`${url}/persons`, person);
+    return this.http.post<Person>(`${url}`, person);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${url}/persons/${id}`);
+    return this.http.delete<void>(`${url}/${id}`);
   }
 }
