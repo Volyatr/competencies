@@ -4,11 +4,16 @@ import {PersonListComponent} from './person-list/person-list.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import { PersonUpdateDialogComponent } from './person-update-dialog/person-update-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
   declarations: [
-    PersonListComponent
+    PersonListComponent,
+    PersonUpdateDialogComponent
   ],
   exports: [
     PersonListComponent
@@ -17,7 +22,10 @@ import {MatButtonModule} from "@angular/material/button";
     CommonModule,
     MatTableModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatInputModule
   ]
 })
 export class CompetenciesModule { }

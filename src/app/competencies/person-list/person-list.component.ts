@@ -2,6 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject, switchMap, takeUntil} from "rxjs";
 import {Person} from "../../model/person";
 import {PersonApiService} from "../../services/person-api.service";
+import {MatDialog} from "@angular/material/dialog";
+import {PersonUpdateDialogComponent} from "../person-update-dialog/person-update-dialog.component";
+import {DialogData} from "../../model/dialog-data";
 
 @Component({
   selector: 'app-person-list',
@@ -16,7 +19,8 @@ export class PersonListComponent implements OnInit, OnDestroy {
   private destroy: Subject<void> = new Subject<void>();
 
   constructor(
-    private personApiService: PersonApiService) {
+    private personApiService: PersonApiService,
+    private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -26,7 +30,11 @@ export class PersonListComponent implements OnInit, OnDestroy {
   }
 
   addPerson(): void {
-    const person = {
+    const dialogData: DialogData = {
+      title: 'Создание сотрудника'
+    };
+    this.openDialog(dialogData);
+    /*const person = {
       id: null,
       firstName: 'Vladislav',
       lastName: 'Alexandrov'
@@ -34,10 +42,12 @@ export class PersonListComponent implements OnInit, OnDestroy {
     this.personApiService.add(person).pipe(
       switchMap(() => this.personApiService.getAll()),
       takeUntil(this.destroy)
-    ).subscribe(persons => this.data = persons);
+    ).subscribe(persons => this.data = persons);*/
   }
 
   editPerson(id: number): void {
+    //this.openDialog();
+
     const person = {
       id: null,
       firstName: 'Vladislav',
@@ -59,5 +69,13 @@ export class PersonListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
+  }
+
+  private openDialog(data: DialogData): void {
+    const dialogRef = this.dialog.open(PersonUpdateDialogComponent, { data });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 }

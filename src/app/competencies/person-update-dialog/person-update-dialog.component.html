@@ -1,0 +1,18 @@
+<div class="dialog">
+  <div class="dialog__header">{{data.title}}</div>
+  <form [formGroup]="form" class="dialog__form">
+    <mat-form-field appearance="fill">
+      <mat-label>Введите имя сотрудника</mat-label>
+      <input matInput formControlName="firstName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Введите фамилию сотрудника</mat-label>
+      <input matInput formControlName="lastName">
+    </mat-form-field>
+  </form>
+  <div class="dialog__footer">
+    <button mat-raised-button color="warn" >Отмена</button>
+    <button mat-raised-button color="primary">Сохранить</button>
+  </div>
+</div>
