@@ -5,6 +5,7 @@ import {PersonApiService} from "../../services/person-api.service";
 import {MatDialog} from "@angular/material/dialog";
 import {PersonUpdateDialogComponent} from "../person-update-dialog/person-update-dialog.component";
 import {DialogData} from "../../model/dialog-data";
+import {RemoveDialogComponent} from "../confirm-remove-dialog/remove-dialog.component";
 
 @Component({
   selector: 'app-person-list',
@@ -56,7 +57,9 @@ export class PersonListComponent implements OnInit, OnDestroy {
   }
 
   removePerson(id: number): void {
-    this.personApiService.delete(id).pipe(
+    this.openRemoveDialog().pipe(
+      filter(person => Boolean(person)),
+      switchMap(() => this.personApiService.delete(id)),
       switchMap(() => this.personApiService.getAll()),
       takeUntil(this.destroy)
     ).subscribe(persons => this.data = persons);
@@ -65,6 +68,12 @@ export class PersonListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
+  }
+
+  private openRemoveDialog(): Observable<boolean> {
+    const dialogRef = this.dialog.open(RemoveDialogComponent);
+
+    return dialogRef.afterClosed();
   }
 
   private openDialog(data: DialogData): Observable<Person | null> {

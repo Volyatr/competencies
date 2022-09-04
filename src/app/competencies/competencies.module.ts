@@ -8,12 +8,14 @@ import { PersonUpdateDialogComponent } from './person-update-dialog/person-updat
 import {MatDialogModule} from "@angular/material/dialog";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
+import { RemoveDialogComponent } from './confirm-remove-dialog/remove-dialog.component';
 
 
 @NgModule({
   declarations: [
     PersonListComponent,
-    PersonUpdateDialogComponent
+    PersonUpdateDialogComponent,
+    RemoveDialogComponent
   ],
   exports: [
     PersonListComponent
