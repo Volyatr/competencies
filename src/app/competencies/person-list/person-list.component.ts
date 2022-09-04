@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject, switchMap, takeUntil} from "rxjs";
+import {Observable, Subject, switchMap, takeUntil} from "rxjs";
 import {Person} from "../../model/person";
 import {PersonApiService} from "../../services/person-api.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -33,16 +33,11 @@ export class PersonListComponent implements OnInit, OnDestroy {
     const dialogData: DialogData = {
       title: 'Создание сотрудника'
     };
-    this.openDialog(dialogData);
-    /*const person = {
-      id: null,
-      firstName: 'Vladislav',
-      lastName: 'Alexandrov'
-    }
-    this.personApiService.add(person).pipe(
+    this.openDialog(dialogData).pipe(
+      switchMap(person => this.personApiService.add(<Person> person)),
       switchMap(() => this.personApiService.getAll()),
       takeUntil(this.destroy)
-    ).subscribe(persons => this.data = persons);*/
+    ).subscribe(persons => this.data = persons);
   }
 
   editPerson(id: number): void {
@@ -71,11 +66,9 @@ export class PersonListComponent implements OnInit, OnDestroy {
     this.destroy.complete();
   }
 
-  private openDialog(data: DialogData): void {
+  private openDialog(data: DialogData): Observable<Person | null> {
     const dialogRef = this.dialog.open(PersonUpdateDialogComponent, { data });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
+    return dialogRef.afterClosed();
   }
 }

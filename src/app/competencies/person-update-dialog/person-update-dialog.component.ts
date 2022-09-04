@@ -1,7 +1,8 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DialogData} from "../../model/dialog-data";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Person} from "../../model/person";
 
 @Component({
   selector: 'app-person-update-dialog',
@@ -10,21 +11,34 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class PersonUpdateDialogComponent {
   form: FormGroup = this.fb.group({
-    firstName: [''],
-    lastName: ['']
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required]
   });
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private dialogRef: MatDialogRef<PersonUpdateDialogComponent>,
     private fb: FormBuilder
   ) {
   }
 
-  cancel() {
-
+  validate(event: KeyboardEvent): void {
+    if(this.form.invalid && event.key === 'Enter') {
+      event.preventDefault();
+    }
   }
 
-  save() {
+  cancel(): void {
+    this.dialogRef.close(null);
+  }
 
+  save(): void {
+    const newPerson: Person = {
+      id: null,
+      firstName: this.form.value['firstName'],
+      lastName: this.form.value['lastName']
+    };
+
+    this.dialogRef.close(newPerson);
   }
 }

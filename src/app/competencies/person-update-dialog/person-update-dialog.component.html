@@ -1,6 +1,6 @@
 <div class="dialog">
   <div class="dialog__header">{{data.title}}</div>
-  <form [formGroup]="form" class="dialog__form">
+  <form class="dialog__form" [formGroup]="form" (ngSubmit)="save()" (keydown)="validate($event)">
     <mat-form-field appearance="fill">
       <mat-label>Введите имя сотрудника</mat-label>
       <input matInput formControlName="firstName">
@@ -10,9 +10,10 @@
       <mat-label>Введите фамилию сотрудника</mat-label>
       <input matInput formControlName="lastName">
     </mat-form-field>
+
+    <div class="dialog__footer">
+      <button mat-raised-button color="warn" (click)="cancel()">Отмена</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Сохранить</button>
+    </div>
   </form>
-  <div class="dialog__footer">
-    <button mat-raised-button color="warn" >Отмена</button>
-    <button mat-raised-button color="primary">Сохранить</button>
-  </div>
 </div>
